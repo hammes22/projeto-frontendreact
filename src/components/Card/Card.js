@@ -6,32 +6,50 @@ import {
   CardContainer,
   CardText,
   CardTitleH5,
-  InputGroup,
 } from "./CardStyled";
 import { FormatMoney } from "../../util/util";
-import { React, useState } from "react";
+import React, { useState } from "react";
 import QuantItem from "../QuantItem/QuantItem";
 export default function Card({
   produto,
-  addItemCarrinho,
-  estaNoCarrinho,
-  removeItemCarrinho,
+  sacolaDeCopras
 }) {
-  const [quant, setQuant] = useState(1);
 
-  const AddItem = () => {
-    let totalItem = quant * produto.value;
-    const item = {
-      id: produto.id,
-      nome: produto.name,
-      value: totalItem,
-      quant: quant,
-      valueUnitario: produto.value
-    };
-    addItemCarrinho(item);
-  };
+  const [quantidade, setQuantidade] = useState("")
 
-  let noCarrinho = estaNoCarrinho(produto.id);
+  const { criarAddItemCarrinho, removeItemCarrinho, estaNoCarrinho } = sacolaDeCopras
+
+
+  function inserirQuantCarrinho() {
+    if (estaNoCarrinho(produto.id)) {
+      return <>
+        <CardText className="text-success">Item no carrinho</CardText>
+        <Button>
+          <input
+            type="button"
+            value="Remover do carrinho"
+            className="btn btn-primary"
+            onClick={() => removeItemCarrinho(produto.id)}
+          />
+        </Button>
+      </>
+
+    } else {
+      return <AddCart>
+        <QuantItem setQuantidade={setQuantidade} quantidade={quantidade} />
+        <Button>
+          <input
+            type="button"
+            value="Adicionar ao carrinho"
+            className="btn btn-primary"
+            onClick={() => { criarAddItemCarrinho(produto, quantidade) }}
+          />
+        </Button>
+      </AddCart>
+    }
+
+
+  }
 
   return (
     <CardContainer>
@@ -43,31 +61,7 @@ export default function Card({
       <CardBody>
         <CardTitleH5>{produto.name}</CardTitleH5>
         <CardText>{FormatMoney(produto.value)}</CardText>
-        {noCarrinho ? (
-          <>
-          <CardText className="text-success">Item no carrinho</CardText>
-            <Button>
-              <input
-                type="button"
-                value="Remover do carrinho"
-                className="btn btn-primary"
-                onClick={() => removeItemCarrinho(produto.id)}
-              />
-            </Button>
-          </>
-        ) : (
-          <AddCart>
-            <QuantItem quantItem={quant} setQuantItem={setQuant}/>
-            <Button>
-              <input
-                type="button"
-                value="Adicionar ao carrinho"
-                className="btn btn-primary"
-                onClick={AddItem}
-              />
-            </Button>
-          </AddCart>
-        )}
+        {inserirQuantCarrinho()}
       </CardBody>
     </CardContainer>
   );

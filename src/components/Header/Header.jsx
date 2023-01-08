@@ -4,17 +4,13 @@ import Filtros from "../Filtros/Filtros";
 import { HeaderStyled, HeaderStyledCarrinho, ItemCarrinho, ItemFiltro } from "./HeaderStyled";
 
 const Header = ({
-  itensCarrinho,
-  removeItemCarrinho,
+  sacolaDeCopras,
   filtrarProduto,
-  setValorMin,
-  setValorMax,
-  setBuscarNome,
-  ordem,
-  setOrdem,
+  receberOrdem,
   tela,
   setTela,
-  finalizarCompra
+  finalizarCompra,
+  filtro
 
 }) => {
 
@@ -24,19 +20,14 @@ const Header = ({
         <ItemFiltro>
           <Filtros
             filtrarProduto={filtrarProduto}
-            setValorMin={setValorMin}
-            setValorMax={setValorMax}
-            setBuscarNome={setBuscarNome}
-            ordem={ordem}
-            setOrdem={setOrdem}
-
+            receberOrdem={receberOrdem}
+            filtro={filtro}
           />
         </ItemFiltro>
         <ItemCarrinho>
           <DropDownCarrinho
             setTela={setTela}
-            itensCarrinho={itensCarrinho}
-            removeItemCarrinho={removeItemCarrinho}
+            sacolaDeCopras={sacolaDeCopras}
             finalizarCompra={finalizarCompra}
           />
         </ItemCarrinho>

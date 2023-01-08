@@ -1,15 +1,12 @@
 import Card from "../Card/Card";
 import { ProdutosContainer } from "./ProdutosStyled";
+import { useCarrinho } from '../../hooks/useCarrinho';
 
 export default function ProdutosTela({
   produtos,
-  addItemCarrinho,
-  estaNoCarrinho,
-  removeItemCarrinho,
-  valorMin,
-  valorMax,
-  buscarNome,
-  ordenar
+  ordenar,
+  filtro,
+  sacolaDeCopras
 }) {
 
 
@@ -18,26 +15,18 @@ export default function ProdutosTela({
   return (
     <ProdutosContainer>
       {produtos.sort(ordenar).filter((produto) => {
-        return produto.value >= valorMin;
+        return filtro.filtrarPorValorMin(produto.value)
       })
         .filter((produto) => {
-          if (valorMax) {
-            return produto.value <= valorMax;
-          }else{
-            return produto.value
-          }
-
-
+          return filtro.filtrarPorValorMax(produto.value)
         }).filter((produto) => {
-          return produto.name.toUpperCase().includes(buscarNome.toUpperCase())
+          return filtro.filtrarPorNome(produto.name)
         }).map((produto) => {
           return (
             <Card
               key={produto.id}
-              removeItemCarrinho={removeItemCarrinho}
-              estaNoCarrinho={estaNoCarrinho}
               produto={produto}
-              addItemCarrinho={addItemCarrinho}
+              sacolaDeCopras={sacolaDeCopras}
             />
           );
         })}

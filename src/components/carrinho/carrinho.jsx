@@ -1,15 +1,20 @@
-import { totalCarrinho } from "../../functions/functionCarrinho";
+// import { totalCarrinho } from "../../functions/functionCarrinho";
 import { FormatMoney, TransicaoDeTelas } from "../../util/util";
 import { CarrinhoContainer, Tabela, ThDescri, Th20,TotalContainer} from "./CarrinhoStyled";
 import QuantItem from "../QuantItem/QuantItem";
 import { useEffect } from "react"
-export default function Carrinho({ itensCarrinho, editQuantCarrinho, removeItemCarrinho, setTela, finalizarCompra }) {
+export default function Carrinho({ sacolaDeCopras, setTela, finalizarCompra }) {
+
+
+    const {carrinho, editQuantCarrinho, removeItemCarrinho,totalCarrinho} = sacolaDeCopras
 
     useEffect(() => {
-        if (!itensCarrinho.length) {
+        if (!carrinho.length) {
             setTela(TransicaoDeTelas.telaInicial)
         }
-    }, [itensCarrinho])
+    }, [carrinho])
+
+
 
     return (
         <CarrinhoContainer>
@@ -24,16 +29,16 @@ export default function Carrinho({ itensCarrinho, editQuantCarrinho, removeItemC
                     </tr>
                 </thead>
                 <tbody >
-                    {itensCarrinho.map(
+                    {carrinho.map(
                         (item) => {
                             return (
                                 <tr key={item.id}>
                                     <ThDescri>{item.nome}</ThDescri>
                                     <Th20>
-                                        <QuantItem editQuantCarrinho={editQuantCarrinho} quantItem={item.quant} id={item.id} />
+                                        <QuantItem editQuantCarrinho={editQuantCarrinho}  quantItem={item.quant} id={item.id} />
                                     </Th20>
-                                    <Th20>{FormatMoney(item.valueUnitario)}</Th20>
-                                    <Th20>{FormatMoney(item.value)}</Th20>
+                                    <Th20>{FormatMoney(item.valorUnitario)}</Th20>
+                                    <Th20>{FormatMoney(item.valorTotal)}</Th20>
                                     <Th20>
                                         <input
                                             type="button"
@@ -51,7 +56,7 @@ export default function Carrinho({ itensCarrinho, editQuantCarrinho, removeItemC
             </Tabela>
             <TotalContainer>
              
-                <h2>Total: {FormatMoney(totalCarrinho(itensCarrinho))}</h2>
+                <h2>Total: {FormatMoney(totalCarrinho())}</h2>
                 <input
                     type="button"
                     className="btn btn-success"

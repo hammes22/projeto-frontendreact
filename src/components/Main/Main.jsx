@@ -3,26 +3,17 @@ import ProdutosTela from "../Produtos/ProdutosTela";
 
 export default function Main({
   produtos,
-  estaNoCarrinho,
-  removeItemCarrinho,
-  valorMin,
-  valorMax,
-  addItemCarrinho,
-  
-  buscarNome,
+  filtro,
   ordenar,
+  sacolaDeCopras
 }) {
   return (
     <MainStyled>
       <ProdutosTela
+        filtro={filtro}
         produtos={produtos}
-        addItemCarrinho={addItemCarrinho}
-        estaNoCarrinho={estaNoCarrinho}
-        removeItemCarrinho={removeItemCarrinho}
-        valorMin={valorMin}
-        valorMax={valorMax}
-        buscarNome={buscarNome}
         ordenar={ordenar}
+        sacolaDeCopras={sacolaDeCopras}
       />
     </MainStyled>
   );
