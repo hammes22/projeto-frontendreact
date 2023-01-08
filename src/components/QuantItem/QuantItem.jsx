@@ -1,59 +1,39 @@
-import { useState } from "react"
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { ButtonDanger, ButtonSuccess, InputGroup } from "./QuantItemStyled";
+import { useCounter } from '../../hooks/useCounter';
+import { useEffect } from 'react';
 
-export default function QuantItem({ quantItem, setQuantItem, editQuantCarrinho, id }) {
-    if (!quantItem) {
-        quantItem = 1
-    }
-    function soma() {
-        if (id) {
-            editQuantCarrinho(id, quantItem + 1,)
-        } else {
-            setQuantItem(quantItem + 1)
-        }
-    }
-    function subtrair() {
-        if (id) {
-            editQuantCarrinho(id, quantItem - 1,)
-        } else {
-            if (quantItem > 0) {
-                setQuantItem(quantItem - 1)
-            }
+export default function QuantItem({ setQuantidade, editQuantCarrinho, id, quantItem }) {
+    const min = id ? 0 : 1
+    const { quant, increment, decrement, onInput } = useCounter({ min: min, max: 10, initial: quantItem })
 
-        }
-    }
-    const addQuant = (e) => {
+    useEffect(() => {
         if (id) {
-            if (e.target.value > 0) {
-                editQuantCarrinho(id, Number(e.target.value))
-            }
+            editQuantCarrinho(id, Number(quant))
         } else {
-            if (quantItem > 0) {
-                setQuantItem(Number(e.target.value))
-            }
+            setQuantidade(quant)
         }
-    };
+    }, [quant])
 
 
     return (
         <InputGroup>
-            <ButtonSuccess onClick={() => soma()}>
+            <ButtonSuccess onClick={() => increment()}>
                 <FaPlus />
             </ButtonSuccess>
             <input
                 type="number"
                 className="form-control"
-                value={quantItem}
-                onChange={addQuant}
+                value={quant}
+                onChange={(e) => { onInput(e.target.value) }}
                 onClick={(e) => {
                     e.target.value = "";
                 }}
                 onBlur={(e) => {
-                    e.target.value = quantItem;
+                    e.target.value = quant;
                 }}
             />
-            <ButtonDanger onClick={() => subtrair()}>
+            <ButtonDanger onClick={() => decrement()}>
                 <FaMinus />
             </ButtonDanger>
 

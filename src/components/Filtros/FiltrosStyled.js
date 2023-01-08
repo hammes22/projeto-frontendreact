@@ -31,7 +31,3 @@ export const LabelFiltro = styled.label.attrs({ className: "form-label" })``;
 export const InputFiltro = styled.input.attrs({ className: "form-control" })`
 
 `;
-
-
-export const SelectFiltro = styled.select.attrs({className: "form-select"})`
-`

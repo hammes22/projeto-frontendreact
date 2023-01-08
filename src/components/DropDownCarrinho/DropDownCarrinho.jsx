@@ -12,9 +12,11 @@ import {
 } from "./DropDownCarrinhoStyled.js";
 import { FaShoppingCart, FaAngleUp, FaAngleDown } from "react-icons/fa";
 import { FormatMoney, TransicaoDeTelas } from "../../util/util.js";
-import { totalCarrinho } from "../../functions/functionCarrinho.js";
 
-export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, setTela, finalizarCompra }) {
+export default function DropDownCarrinho({sacolaDeCopras,setTela, finalizarCompra }) {
+
+  const {carrinho,totalCarrinho,removeItemCarrinho} = sacolaDeCopras
+
   const [isOpen, setIsOpen] = useState(false);
   const toggling = () => setIsOpen(!isOpen);
 
@@ -29,7 +31,7 @@ export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, se
           <small>MEU CARRINHO</small>
         </li>
         <li>
-          <strong> {itensCarrinho.length} produto(s)</strong>
+          <strong> {carrinho.length} produto(s)</strong>
         </li>
       </ul>
     </HeaderDropdownInicial>
@@ -41,7 +43,7 @@ export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, se
       <DropDownListContainer>
 
         <DropDownList>
-          {itensCarrinho.map((item) => (
+          {carrinho.map((item) => (
             <ListItem key={item.id}>
               <div>
                 <h6>
@@ -51,7 +53,7 @@ export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, se
                   <strong>Quantidade:</strong> {item.quant}
                 </p>
                 <p>
-                  <strong>Total:</strong> {FormatMoney(item.value)}
+                  <strong>Total:</strong> {FormatMoney(item.valorTotal)}
                 </p>
               </div>
 
@@ -67,7 +69,7 @@ export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, se
       </DropDownListContainer>
       <FooterDropdownInicial>
         <p>
-          <strong>Valor a pagar:</strong> {FormatMoney(totalCarrinho(itensCarrinho))}
+          <strong>Valor a pagar:</strong> {FormatMoney(totalCarrinho(carrinho))}
         </p>
         <FooterDropdownButton>
           <input
@@ -114,7 +116,7 @@ export default function DropDownCarrinho({ itensCarrinho, removeItemCarrinho, se
       {isOpen && (
         <>
           {
-            itensCarrinho.length >= 1
+            carrinho.length >= 1
               ? dropBoby
               : dropBodyVazio
           }
