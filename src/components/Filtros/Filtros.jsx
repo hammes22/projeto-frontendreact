@@ -1,4 +1,4 @@
-import { FiltroContainer, InputFiltro, InputGroup, LabelFiltro } from "./FiltrosStyled";
+import { FiltroContainer, InputButton, InputFiltro, InputGroup, InputGroupButton, LabelFiltro } from "./FiltrosStyled";
 
 export default function Filtros({
     filtro,
@@ -12,6 +12,7 @@ export default function Filtros({
                     <InputFiltro type="number"
                         className="form-control"
                         id="ValorMin"
+                        value={filtro.valorMin}
                         placeholder="R$ 0,99"
                         onChange={(e) => { filtro.receberValorMin(e) }}
 
@@ -26,6 +27,7 @@ export default function Filtros({
                         className="form-control"
                         id="ValorMax"
                         placeholder="R$ 100,00"
+                        value={filtro.valorMax}
                         onChange={(e) => { filtro.receberValorMax(e) }}
                     />
                 </LabelFiltro>
@@ -38,16 +40,29 @@ export default function Filtros({
                         className="form-control"
                         id="BuscarNome"
                         placeholder="Camiseta Planeta"
+                        value={filtro.nome}
                         onChange={(e) => { filtro.receberNome(e) }}
                     />
                 </LabelFiltro>
             </InputGroup>
+
             <InputGroup>
                 <LabelFiltro htmlFor="ordem">
                     Ordenar por preço:
                     {receberOrdem()}
                 </LabelFiltro>
             </InputGroup>
+
+            <input
+                type="button"
+                className="btn btn-success"
+                id="BuscarNome"
+                placeholder="Camiseta Planeta"
+                value="Limpar filtros"
+                onClick={(e) => { filtro.limparFiltro() }}
+            />
+
+
 
 
         </FiltroContainer>
