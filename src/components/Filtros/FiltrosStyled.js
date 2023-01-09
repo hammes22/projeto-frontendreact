@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { cores } from '../../util/cores';
 
 export const FiltroContainer = styled.section`
   height: 100%;
@@ -26,7 +27,9 @@ export const InputGroup = styled.div`
   }
 `;
 
-export const LabelFiltro = styled.label.attrs({ className: "form-label" })``;
+export const LabelFiltro = styled.label.attrs({ className: "form-label" })`
+  color: ${(props) => props.Ebutton ? cores.header: cores.branco};
+`;
 
 export const InputFiltro = styled.input.attrs({ className: "form-control" })`
 

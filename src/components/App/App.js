@@ -13,7 +13,6 @@ import { useFiltros } from "../../hooks/useFiltros";
 import { useCarrinho } from '../../hooks/useCarrinho';
 
 function App() {
-  const localStorangeKey = "carrinho";
   const [tela, setTela] = useState(TransicaoDeTelas.telaInicial);
   const sacolaDeCopras = useCarrinho()
   const produtos = useProdutos();
