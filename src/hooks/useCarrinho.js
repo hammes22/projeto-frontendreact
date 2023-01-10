@@ -104,8 +104,6 @@ export function useCarrinho() {
         });
     };
 
-
-
     const totalCarrinho = () => {
         let soma = 0;
         carrinho.map((item) => (soma += item.valorTotal));
